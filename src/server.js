@@ -4,6 +4,12 @@ const ProductController = require("./controller/ProductController");
 const server = http.createServer((req, res) => {
   if (req.url === "/api/products" && req.method === "GET") {
     return ProductController.getProducts(req, res);
+  } else if (
+    req.url.match(/\/api\/products\/([0-9]+)/) &&
+    req.method === "GET"
+  ) {
+    const id = req.url.split("/")[3];
+    return ProductController.getProduct(req, res, id);
   } else {
     res.writeHead(400, ("Content-Type", "application/json"));
     res.end(JSON.stringify("Route not found!"));
