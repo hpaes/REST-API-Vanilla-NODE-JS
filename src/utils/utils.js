@@ -8,6 +8,25 @@ function writeDateToFile(filename, content) {
   });
 }
 
+function getPostData(req) {
+  return new Promise((resolve, reject) => {
+    try {
+      let body = [];
+      req.on('data', (chunk) => {
+        body.push(chunk);
+
+        req.on('end', () => {
+          body = JSON.parse(body);
+          resolve(body);
+        });
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
 module.exports = {
   writeDateToFile,
+  getPostData,
 };
