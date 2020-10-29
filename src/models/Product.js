@@ -1,4 +1,4 @@
-const products = require("../data/products.json");
+const products = require('../data/products.json');
 
 function findAll() {
   return new Promise((resolve, reject) => {
@@ -9,7 +9,6 @@ function findAll() {
 function findById(id) {
   return new Promise((resolve, reject) => {
     const product = products.find((p) => p.id === id);
-    console.log(product);
     resolve(product);
   });
 }
