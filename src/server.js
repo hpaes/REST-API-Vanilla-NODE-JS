@@ -5,7 +5,7 @@ const server = http.createServer((req, res) => {
   if (req.url === '/api/products' && req.method === 'GET') {
     return ProductController.getProducts(req, res);
   } else if (
-    req.url.match(/\/api\/products\/([0-9]+)/) &&
+    req.url.match(/\/api\/products\/([a-z0-9]+)/) &&
     req.method === 'GET'
   ) {
     const id = req.url.split('/')[3];
@@ -20,4 +20,10 @@ const server = http.createServer((req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, (err) => {
+  if (err) {
+    console.error('Unable to connect the server: ', err);
+  } else {
+    console.log(`Server running on port ${PORT}`);
+  }
+});

@@ -5,14 +5,22 @@ const path = require('path');
 
 function findAll() {
   return new Promise((resolve, reject) => {
-    resolve(products);
+    try {
+      resolve(products);
+    } catch (error) {
+      reject(error);
+    }
   });
 }
 
 function findById(id) {
   return new Promise((resolve, reject) => {
-    const product = products.find((p) => p.id === id);
-    resolve(product);
+    try {
+      const product = products.find((p) => p.id === id);
+      resolve(product);
+    } catch (error) {
+      reject(error);
+    }
   });
 }
 
@@ -27,7 +35,6 @@ function create(product) {
       );
       resolve(newProduct);
     } catch (err) {
-      console.log(err);
       reject(err);
     }
   });
