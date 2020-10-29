@@ -40,8 +40,26 @@ function create(product) {
   });
 }
 
+function update(id, product) {
+  return new Promise((resolve, reject) => {
+    try {
+      const index = products.findIndex((p) => p.id === id);
+
+      products[index] = { id, ...product };
+      writeDateToFile(
+        path.join(__dirname, '..', 'data', 'products.json'),
+        products,
+      );
+      resolve(products[index]);
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
 module.exports = {
   findAll,
   findById,
   create,
+  update,
 };

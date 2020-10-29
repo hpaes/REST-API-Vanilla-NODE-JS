@@ -10,6 +10,12 @@ const server = http.createServer((req, res) => {
   ) {
     const id = req.url.split('/')[3];
     return ProductController.getProduct(req, res, id);
+  } else if (
+    req.url.match(/\/api\/products\/([a-z0-9]+)/) &&
+    req.method === 'PUT'
+  ) {
+    const id = req.url.split('/')[3];
+    return ProductController.updateProduct(req, res, id);
   } else if (req.url === '/api/products' && req.method === 'POST') {
     return ProductController.createProduct(req, res);
   } else {
