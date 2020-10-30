@@ -1,4 +1,4 @@
-const products = require('../data/products.json');
+let products = require('../data/products.json');
 const { v4 } = require('uuid');
 const { writeDateToFile } = require('../utils/utils');
 const path = require('path');
@@ -57,9 +57,26 @@ function update(id, product) {
   });
 }
 
+function remove(id) {
+  return new Promise((resolve, reject) => {
+    try {
+      const filteredProducts = products.filter((p) => p.id !== id);
+
+      writeDateToFile(
+        path.join(__dirname, '..', 'data', 'products.json'),
+        filteredProducts,
+      );
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
 module.exports = {
   findAll,
   findById,
   create,
   update,
+  remove,
 };

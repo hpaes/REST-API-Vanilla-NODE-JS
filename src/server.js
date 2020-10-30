@@ -18,6 +18,12 @@ const server = http.createServer((req, res) => {
     return ProductController.updateProduct(req, res, id);
   } else if (req.url === '/api/products' && req.method === 'POST') {
     return ProductController.createProduct(req, res);
+  } else if (
+    req.url.match(/\/api\/products\/([a-z0-9]+)/) &&
+    req.method === 'DELETE'
+  ) {
+    const id = req.url.split('/')[3];
+    return ProductController.deleteProduct(req, res, id);
   } else {
     res.writeHead(400, ('Content-Type', 'application/json'));
     res.end(JSON.stringify('Route not found!'));
